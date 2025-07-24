@@ -42,7 +42,7 @@ Happy Shopping!
                 send_mail(
                     subject,
                     message,
-                    "channambhikas@gmail.com",
+                    "your@gmail.com",
                     [recipient_email],
                     fail_silently=False,
                 )
@@ -69,7 +69,7 @@ Happy Shopping!
                 send_mail(
                     subject,
                     message,
-                    "channambhikas@gmail.com",
+                    "your@gmail.com",
                     [recipient_email],
                     fail_silently=False,
                 )
