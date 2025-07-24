@@ -1,0 +1,89 @@
+{% extends 'accounts/main.html' %}
+{% block content %}
+{% include 'accounts/status.html' %}
+
+<style>
+  #id_subject, #id_message {
+    font-size: 16px;
+    color: #000;
+    background-color: #fff;
+  }
+</style>
+
+<br>
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span>&times;</span>
+      </button>
+    </div>
+  {% endfor %}
+{% endif %}
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <table class="table table-sm">
+                <tr>
+                    <th>Product</th>
+                    <th>Category</th>
+                    <th>Note</th>
+                    <th>Date Ordered</th>
+                    <th>Status</th>
+                </tr>
+
+                {% for order in orders %}
+                    <tr>
+                        <td>{{order.product}}</td>
+                        <td>{{order.product.category}}</td>
+                        <td>{{order.note}}</td>
+                        <td>{{order.date_created}}</td>
+                        <td>{{order.status}}</td>
+                    </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Button to trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#queryModal">
+  Send Query to Admin
+</button>
+
+<!-- Modal form -->
+<div class="modal fade" id="queryModal" tabindex="-1" role="dialog" aria-labelledby="queryModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form method="POST" action="{% url 'send-query-email' %}">
+      {% csrf_token %}
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="queryModalLabel">Send Query to Admin</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="id_subject">Subject</label>
+            <input type="text" name="subject" id="id_subject" class="form-control" required placeholder="Enter subject">
+          </div>
+          <div class="form-group">
+            <label for="id_message">Message</label>
+            <textarea name="message" id="id_message" class="form-control" rows="6" required placeholder="Type your query here..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Send</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+{% endblock content %}

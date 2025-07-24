@@ -1,0 +1,14 @@
+{% extends "accounts/main.html" %}
+{% block content %}
+
+<div class="card card-body">
+    <p>Are you sure you want to delete {{ item.name }}?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+        <input class="btn btn-danger" type="submit" value="Confirm Delete">
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+<!-- templates/accounts/customers_by_bill.html -->
+{% extends 'accounts/main.html' %}
+
+{% block content %}
+  <h2>Customers Sorted by Total Bill (Ascending)</h2>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Total Bill</th>
+    </tr>
+    {% for customer in customers %}
+    <tr>
+      <td>{{ customer.name }}</td>
+      <td>{{ customer.email }}</td>
+      <td>{{ customer.total_bill|default:0 }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
